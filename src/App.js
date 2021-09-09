@@ -3,6 +3,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Header from './components/Header'
 import Home from "./pages/Home";
 import AddEmployee from "./pages/AddEmployee";
+import Details from "./pages/Details";
+
 class App extends React.Component {
 
   render() {
@@ -17,6 +19,9 @@ class App extends React.Component {
           </Route>
           <Route path="/add">
             <AddEmployee />
+          </Route>
+          <Route path="/:id">
+            <Details/>
           </Route>
         </Switch>
       </div>
