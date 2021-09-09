@@ -6,7 +6,10 @@ class Employee extends React.Component {
     return (
       <div className="border p-4 rounded-sm">
         <div className="mb-4">
-          <h2 className="text-xl font-semibold">Akash Chourasia</h2>
+          <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold">{this.props.employee.name}</h2>
+          <p className="text-sm text-gray-500">{this.props.employee.email}</p>
+          </div>
         </div>
 
         <div className="flex space-x-2 sm:space-x-4">
