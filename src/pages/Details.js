@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 const Details = (props) => {
     const { id } = useParams();
     const employee = useSelector((state) =>
-        state.find((emp) => emp.id === +id)
+        state.employees.find((emp) => emp.id === id)
     );
     
     if (!employee) {

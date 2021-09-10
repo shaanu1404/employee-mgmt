@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Home from "./pages/Home";
 import AddEmployee from "./pages/AddEmployee";
 import Details from "./pages/Details";
+import EditEmployee from "./pages/EditEmployee";
 
 class App extends React.Component {
 
@@ -20,8 +21,11 @@ class App extends React.Component {
           <Route path="/add">
             <AddEmployee />
           </Route>
-          <Route path="/:id">
+          <Route path="/:id" exact>
             <Details/>
+          </Route>
+          <Route path="/:id/edit">
+            <EditEmployee />
           </Route>
         </Switch>
       </div>

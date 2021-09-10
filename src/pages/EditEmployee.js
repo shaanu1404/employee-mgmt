@@ -2,9 +2,30 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Formik } from "formik";
 import { connect } from "react-redux";
-import { ADD_NEW_EMPLOYEE } from "../store/actions/action";
+import { EDIT_EMPLOYEE } from "../store/actions/action";
 
-class AddEmployee extends React.Component {
+class EditEmployee extends React.Component {
+    state = {
+        name: "",
+        username: "",
+        email: "",
+        address: "",
+        contact: "",
+    };
+
+    componentDidMount() {
+        const id = this.props.match.params.id;
+        const foundEmp = this.props.employees.find((emp) => emp.id === id);
+
+        this.setState({
+            name: foundEmp.name || "",
+            username: foundEmp.username || "",
+            email: foundEmp.email || "",
+            address: foundEmp.address || "",
+            contact: foundEmp.contact || "",
+        });
+    }
+
     initialValues = {
         name: "",
         username: "",
@@ -47,7 +68,7 @@ class AddEmployee extends React.Component {
     };
 
     onFormSubmit = (values) => {
-        this.props.addEmployee(values);
+        this.props.editEmployee(this.props.match.params.id, values);
         this.props.history.goBack();
     };
 
@@ -55,12 +76,13 @@ class AddEmployee extends React.Component {
         return (
             <div>
                 <h4 className="text-lg text-gray-700 mb-6 font-semibold uppercase">
-                    Add new employee
+                    Edit {this.state.name}
                 </h4>
                 <Formik
-                    initialValues={this.initialValues}
+                    initialValues={this.state}
                     onSubmit={this.onFormSubmit}
                     validate={this.validate}
+                    enableReinitialize={true}
                 >
                     {(formik) => (
                         <form
@@ -198,11 +220,20 @@ class AddEmployee extends React.Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
     return {
-        addEmployee: (data) =>
-            dispatch({ type: ADD_NEW_EMPLOYEE, payload: data }),
+        employees: state.employees,
     };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(AddEmployee));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        editEmployee: (id, data) =>
+            dispatch({ type: EDIT_EMPLOYEE, payload: { id, data } }),
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(EditEmployee));

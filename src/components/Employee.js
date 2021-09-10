@@ -7,18 +7,23 @@ class Employee extends React.Component {
         this.props.history.push("/" + this.props.employee.id);
     };
 
+    editEmployee = () => {
+        this.props.history.push('/' + this.props.employee.id + '/edit')
+    }
+
     render() {
         return (
             <div className="border p-4 rounded-sm">
                 <div className="mb-4">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-xl font-semibold">
+                        <h2 className="text-xl font-semibold capitalize">
                             {this.props.employee.name}
                         </h2>
                         <p className="text-sm text-gray-500">
                             {this.props.employee.email}
                         </p>
                     </div>
+                    <p className="text-blue-500">{this.props.employee.username}</p>
                 </div>
 
                 <div className="flex space-x-2 sm:space-x-4">
@@ -45,7 +50,7 @@ class Employee extends React.Component {
                         </svg>
                         <span>Read</span>
                     </GhostButton>
-                    <GhostButton>
+                    <GhostButton onClick={this.editEmployee}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-4 w-4"
@@ -62,7 +67,7 @@ class Employee extends React.Component {
                         </svg>
                         <span>Edit</span>
                     </GhostButton>
-                    <GhostButton>
+                    <GhostButton onClick={this.props.deleteEmployee}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-4 w-4"
